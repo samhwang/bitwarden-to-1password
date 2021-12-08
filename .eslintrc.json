@@ -1,0 +1,25 @@
+{
+    "root": true,
+    "env": {
+        "es6": true,
+        "node": true,
+        "jest": true
+    },
+    "extends": ["airbnb-base", "airbnb-typescript/base", "prettier"],
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "plugins": ["@typescript-eslint", "import", "prettier"],
+    "rules": {
+        "default-case": "off",
+        "import/extensions": ["error", "never"],
+        "no-console": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-use-before-define": ["error", "nofunc"],
+        "import/prefer-default-export": "off",
+        "prettier/prettier": "error",
+        "no-new": "off",
+        "no-useless-constructor": "off"
+    }
+}
