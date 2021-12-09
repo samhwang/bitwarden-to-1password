@@ -24,7 +24,7 @@ const {
     format: fileFormat,
 } = program.opts();
 
-try {
+const main = () => {
     if (isUnsupportedFiletype(fileFormat)) {
         throw new Error(`Unsupported file type: ${fileFormat}`);
     }
@@ -45,7 +45,6 @@ try {
 
     console.log(`WRITE DONE!`);
     process.exit();
-} catch (error: any) {
-    console.error(`ENCOUNTERED ERROR: ${error}`);
-    process.exit(1);
-}
+};
+
+main();
