@@ -4,7 +4,7 @@ import {
     isUnsupportedFiletype,
     getRelativeFilepath,
     parseCSVInput,
-    convertBWCSVTo1P,
+    convertBWTo1P,
     write1PasswordCSV,
 } from './bw-to-1p';
 
@@ -38,7 +38,7 @@ try {
     const BWLogins = parseCSVInput(inputPath);
 
     console.log(`CONVERTING TO 1PASSWORD LOGINS`);
-    const onePassLogins = convertBWCSVTo1P(BWLogins);
+    const onePassLogins = convertBWTo1P(BWLogins);
 
     console.log(`WRITING TO OUTPUT FILE: ${outputFile}`);
     write1PasswordCSV(onePassLogins, getRelativeFilepath(outputFile));
