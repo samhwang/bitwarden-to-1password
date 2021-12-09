@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import { URL } from 'url';
 
-interface IBitwardenLogin {
+export interface IBitwardenLogin {
     name: string;
     notes: string;
     login_uri: string;
@@ -37,4 +38,47 @@ export const parseCSVInput = (inputFile: string): IBitwardenLogin[] => {
             });
             return accumulator;
         }, []);
+};
+
+export interface I1PasswordLogin {
+    title: string;
+    website: string;
+    username: string;
+    password: string;
+    notes?: string;
+}
+
+/**
+ * Converts BitWarden Login to 1Password Login
+ * @param inputs BitWarden Logins
+ * @returns 1Password Login Objects
+ */
+export const convertBWTo1P = (inputs: IBitwardenLogin[]): I1PasswordLogin[] =>
+    inputs.map(
+        ({ name, login_uri, login_username, login_password, notes }) => ({
+            title: name,
+            website: new URL(login_uri).host,
+            username: login_username,
+            password: login_password,
+            notes,
+        })
+    );
+
+const arrayToLine = (words: string[]) => `${words.join(',')}\n`;
+
+/**
+ * Export 1password logins into csv file
+ * @param logins 1Password login objects
+ * @param outputFile Output file name
+ */
+export const write1PasswordCSV = (
+    logins: I1PasswordLogin[],
+    outputFile: string
+) => {
+    const titles = ['title', 'website', 'username', 'password', 'notes'];
+    const writeStream = fs.createWriteStream(path.join(__dirname, outputFile));
+    writeStream.write(arrayToLine(titles));
+    logins.forEach((login) => {
+        writeStream.write(arrayToLine(Object.values(login)));
+    });
 };
