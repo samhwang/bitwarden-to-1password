@@ -5,6 +5,11 @@ Inspired from [torshinalexey/bitwarden-to-1password-csv](https://github.com/tors
 This cli tool converts exported logins from [Bitwarden](https://bitwarden.com) to [1Password](https://1password.com)
 compatible csv format.
 
+## Prerequisites
+
+- Node 14+
+- NPM 7+
+
 ## Usage Notes
 
 - Login into BitWarden, and [export your vault into CSV format](https://bitwarden.com/help/article/export-your-data/#export-a-personal-vault)
