@@ -6,6 +6,15 @@ const baseConfig: Config.InitialOptions = {
     collectCoverage: true,
     testEnvironment: 'node',
     testPathIgnorePatterns: ['build'],
+    transform: {
+        '^.+\\.tsx?$': [
+            'esbuild-jest',
+            {
+                sourcemap: true,
+                platform: 'node',
+            },
+        ],
+    },
 };
 
 export default baseConfig;
