@@ -1,14 +1,6 @@
 import fs from 'fs';
-import path from 'path';
 import { URL } from 'url';
-
-/**
- * Get relative file path from the script calling this
- * @param filename The file name
- * @returns The relative path to the file
- */
-export const getRelativeFilepath = (filename: string) =>
-    path.join(__dirname, '..', filename);
+import type { I1PasswordLogin } from './utils';
 
 export interface IBitwardenLogin {
     name: string;
@@ -46,20 +38,14 @@ export const parseCSVInput = (inputFile: string): IBitwardenLogin[] => {
         }, []);
 };
 
-export interface I1PasswordLogin {
-    title: string;
-    website: string;
-    username: string;
-    password: string;
-    notes?: string;
-}
-
 /**
- * Converts BitWarden Login to 1Password Login
+ * Converts BitWarden Login CSV to 1Password Login
  * @param inputs BitWarden Logins
  * @returns 1Password Login Objects
  */
-export const convertBWTo1P = (inputs: IBitwardenLogin[]): I1PasswordLogin[] =>
+export const convertBWCSVTo1P = (
+    inputs: IBitwardenLogin[]
+): I1PasswordLogin[] =>
     inputs.map(
         ({ name, login_uri, login_username, login_password, notes }) => ({
             title: name,
@@ -69,22 +55,3 @@ export const convertBWTo1P = (inputs: IBitwardenLogin[]): I1PasswordLogin[] =>
             notes,
         })
     );
-
-const arrayToLine = (words: string[]) => `${words.join(',')}\n`;
-
-/**
- * Export 1password logins into csv file
- * @param logins 1Password login objects
- * @param outputFile Output file name
- */
-export const write1PasswordCSV = (
-    logins: I1PasswordLogin[],
-    outputFile: string
-) => {
-    const titles = ['title', 'website', 'username', 'password', 'notes'];
-    const writeStream = fs.createWriteStream(outputFile);
-    writeStream.write(arrayToLine(titles));
-    logins.forEach((login) => {
-        writeStream.write(arrayToLine(Object.values(login)));
-    });
-};

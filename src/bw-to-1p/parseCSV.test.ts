@@ -1,13 +1,8 @@
-import {
-    convertBWTo1P,
-    getRelativeFilepath,
-    I1PasswordLogin,
-    IBitwardenLogin,
-    parseCSVInput,
-} from './bw-to-1p';
+import { convertBWCSVTo1P, IBitwardenLogin, parseCSVInput } from './parseCSV';
+import { getRelativeFilepath, I1PasswordLogin } from './utils';
 
-describe('Bitwarden to 1Password', () => {
-    const inputFile = 'input/sample.csv';
+describe('Bitwarden CSV to 1Password', () => {
+    const inputFile = '../input/sample.csv';
 
     it('Should parse the file correctly', () => {
         const records = parseCSVInput(getRelativeFilepath(inputFile));
@@ -31,7 +26,7 @@ describe('Bitwarden to 1Password', () => {
             login_username: 'example_login',
             login_password: 'example_password',
         };
-        const output = convertBWTo1P([input]);
+        const output = convertBWCSVTo1P([input]);
         const expectedOutput: I1PasswordLogin = {
             title: 'Example name',
             notes: 'example note',
