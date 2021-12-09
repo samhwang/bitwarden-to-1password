@@ -58,7 +58,7 @@ export const convertBWTo1P = (inputs: IBitWardenLogin[]): I1PasswordLogin[] =>
     inputs.map(
         ({ name, login_uri, login_username, login_password, notes }) => ({
             title: name,
-            website: new URL(login_uri).host,
+            website: login_uri,
             username: login_username,
             password: login_password,
             notes,

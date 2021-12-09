@@ -29,9 +29,18 @@ export const parseJSONInput = (inputFile: string): IBitWardenLogin[] => {
         const baseObject: Omit<IBitWardenLogin, 'login_uri'> = {
             name,
             notes: notes ?? '',
-            login_username: login.username,
-            login_password: login.password,
+            login_username: login.username ?? '',
+            login_password: login.password ?? '',
         };
+
+        if (!login.uris || login.uris.length === 0) {
+            accumulator.push({
+                ...baseObject,
+                login_uri: '',
+            });
+            return accumulator;
+        }
+
         return accumulator.concat(
             login.uris.map(({ uri }: { uri?: string }) => ({
                 ...baseObject,

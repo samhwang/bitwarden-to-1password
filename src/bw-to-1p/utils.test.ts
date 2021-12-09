@@ -19,7 +19,7 @@ describe('BitWarden to 1Password', () => {
         const expectedOutput: I1PasswordLogin = {
             title: 'Example name',
             notes: 'example note',
-            website: 'example.com',
+            website: 'https://example.com',
             username: 'example_login',
             password: 'example_password',
         };

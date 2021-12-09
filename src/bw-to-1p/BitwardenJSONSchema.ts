@@ -5,7 +5,7 @@ const URISchema = yup
     .object()
     .shape({
         match: yup.string().nullable(),
-        uri: yup.string().required(),
+        uri: yup.string().nullable(),
     })
     .required();
 
@@ -18,9 +18,9 @@ const BitWardenItem = yup
         login: yup
             .object()
             .shape({
-                username: yup.string().required(),
-                password: yup.string().required(),
-                uris: yup.array().of(URISchema).required(),
+                username: yup.string().nullable(),
+                password: yup.string().nullable(),
+                uris: yup.array().of(URISchema).optional(),
             })
             .required(),
     });
