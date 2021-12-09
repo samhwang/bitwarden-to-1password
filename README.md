@@ -29,7 +29,14 @@ npm run build
 
 ## Run the script
 
-Run one of the following scripts (it should turn out the same).
+Run one of the following scripts after bundling (it should turn out the same).
+
+```bash
+node build/bw-to-1p.js
+node .
+```
+
+For debugging purposes, you can also enable source maps with Node.
 
 ```bash
 node --enable-source-maps build/bw-to-1p.js
