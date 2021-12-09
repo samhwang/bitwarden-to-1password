@@ -1,6 +1,14 @@
 import path from 'path';
 import fs from 'fs';
 
+export interface IBitwardenLogin {
+    name: string;
+    notes: string;
+    login_uri: string;
+    login_username: string;
+    login_password: string;
+}
+
 /**
  * Get relative file path from the script calling this
  * @param filename The file name
@@ -8,6 +16,23 @@ import fs from 'fs';
  */
 export const getRelativeFilepath = (filename: string) =>
     path.join(__dirname, '..', filename);
+
+type FileFormat = 'csv' | 'pdf';
+
+/**
+ * Detect if a file type is incorrect
+ * @param filename
+ * @param format
+ */
+export const isIncorrectFiletype = (filename: string, format: FileFormat) =>
+    !filename.endsWith(format);
+
+/**
+ * Detect if a file type is supported
+ * @param format
+ */
+export const isUnsupportedFiletype = (format: string) =>
+    !['csv', 'json'].includes(format);
 
 /**
  * Output array to line

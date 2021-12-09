@@ -1,14 +1,6 @@
 import fs from 'fs';
 import { URL } from 'url';
-import type { I1PasswordLogin } from './utils';
-
-export interface IBitwardenLogin {
-    name: string;
-    notes: string;
-    login_uri: string;
-    login_username: string;
-    login_password: string;
-}
+import type { IBitwardenLogin, I1PasswordLogin } from './utils';
 
 /**
  * Parse CSV input file into an array of TS Records
