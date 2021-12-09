@@ -13,7 +13,8 @@
     "resolveJsonModule": true,
     "isolatedModules": false,
     "outDir": "build",
-    "declaration": true
+    "declaration": true,
+    "noEmit": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "build"]
