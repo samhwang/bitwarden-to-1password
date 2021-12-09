@@ -2,6 +2,14 @@ import fs from 'fs';
 import path from 'path';
 import { URL } from 'url';
 
+/**
+ * Get relative file path from the script calling this
+ * @param filename The file name
+ * @returns The relative path to the file
+ */
+export const getRelativeFilepath = (filename: string) =>
+    path.join(__dirname, '..', filename);
+
 export interface IBitwardenLogin {
     name: string;
     notes: string;
@@ -19,9 +27,7 @@ export const parseCSVInput = (inputFile: string): IBitwardenLogin[] => {
     const isHeaderRow = (lineCount: number) => lineCount === 0;
     const isEmptyLine = (line: string) => line.trim() === '';
     return fs
-        .readFileSync(path.join(__dirname, inputFile), {
-            encoding: 'utf-8',
-        })
+        .readFileSync(inputFile, { encoding: 'utf-8' })
         .split('\n')
         .reduce((accumulator: IBitwardenLogin[], line, index) => {
             if (isHeaderRow(index) || isEmptyLine(line)) {
@@ -76,7 +82,7 @@ export const write1PasswordCSV = (
     outputFile: string
 ) => {
     const titles = ['title', 'website', 'username', 'password', 'notes'];
-    const writeStream = fs.createWriteStream(path.join(__dirname, outputFile));
+    const writeStream = fs.createWriteStream(outputFile);
     writeStream.write(arrayToLine(titles));
     logins.forEach((login) => {
         writeStream.write(arrayToLine(Object.values(login)));

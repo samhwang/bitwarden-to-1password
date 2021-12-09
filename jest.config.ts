@@ -5,6 +5,7 @@ const baseConfig: Config.InitialOptions = {
     verbose: true,
     collectCoverage: true,
     testEnvironment: 'node',
+    testPathIgnorePatterns: ['build'],
 };
 
 export default baseConfig;
