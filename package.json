@@ -32,10 +32,12 @@
     },
     "devDependencies": {
         "@jest/types": "^27.1.0",
+        "@types/concurrently": "^6.4.0",
         "@types/jest": "^27.0.1",
         "@types/node": "^16.11.1",
         "@typescript-eslint/eslint-plugin": "^5.0.0",
         "@typescript-eslint/parser": "^5.0.0",
+        "concurrently": "^6.4.0",
         "esbuild": "^0.13.8",
         "esbuild-jest": "^0.5.0",
         "eslint": "^8.0.1",
