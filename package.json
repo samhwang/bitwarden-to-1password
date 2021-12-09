@@ -27,7 +27,8 @@
         "format": "npm run lint && prettier -w src/**/*"
     },
     "dependencies": {
-        "commander": "^8.3.0"
+        "commander": "^8.3.0",
+        "yup": "^0.32.11"
     },
     "devDependencies": {
         "@jest/types": "^27.1.0",
