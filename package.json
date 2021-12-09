@@ -18,13 +18,13 @@
         "clean:all": "npm run prebuild && npm run pretest",
         "prebuild": "rimraf build",
         "typecheck": "tsc",
-        "build:only": "node scripts/build.js",
+        "build:only": "ts-node scripts/build.ts",
         "build": "npm run typecheck && npm run build:only",
         "pretest": "rimraf coverage",
         "test": "npm run typecheck && jest",
         "lint": "eslint src --ext .ts",
         "lint:fix": "npm run eslint -- --fix",
-        "format": "npm run lint && prettier -w src/**/*"
+        "format": "npm run lint && prettier -w src/**/* scripts/**/*"
     },
     "dependencies": {
         "commander": "^8.3.0",
