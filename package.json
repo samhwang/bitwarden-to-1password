@@ -1,7 +1,7 @@
 {
     "name": "bitwarden-to-1password",
     "version": "0.0.1",
-    "description": "Converts Bitwarden exported logins to accepted 1password csv format",
+    "description": "Converts BitWarden exported logins to accepted 1Password csv format",
     "main": "build/bw-to-1p.js",
     "author": "Sam Huynh <samhwang2112.dev@gmail.com>",
     "license": "ISC",
@@ -19,12 +19,14 @@
         "prebuild": "rimraf build",
         "typecheck": "tsc",
         "build:only": "ts-node scripts/build.ts",
-        "build": "npm run typecheck && npm run build:only",
+        "build": "concurrently --kill-others-on-fail npm:typecheck npm:build:only",
         "pretest": "rimraf coverage",
-        "test": "npm run typecheck && jest",
+        "test:only": "jest",
+        "test": "concurrently --kill-others-on-fail npm:typecheck npm:test:only",
         "lint": "eslint src --ext .ts",
         "lint:fix": "npm run eslint -- --fix",
-        "format": "npm run lint && prettier -w src/**/* scripts/**/*"
+        "prettier": "prettier -w src/**/* scripts/**/*",
+        "format": "npm run lint && npm run prettier"
     },
     "dependencies": {
         "commander": "^8.3.0",
