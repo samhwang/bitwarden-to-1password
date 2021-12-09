@@ -25,7 +25,15 @@ compatible csv format.
 git clone https://github.com/samhwang/bitwarden-to-1password.git
 cd bitwarden-to-1password
 npm run build
-node build/bw-to-1p.js
+```
+
+## Run the script
+
+Run one of the following scripts (it should turn out the same).
+
+```bash
+node --enable-source-maps build/bw-to-1p.js
+node --enable-source-maps .
 ```
 
 ## Options
@@ -45,6 +53,14 @@ Options:
 
 ## Example
 
+Converting a CSV file
+
 ```bash
-node build/bw-to-1p.js -i input/bitwarden.csv -o output/1password.csv -f csv
+node build/bw-to-1p.js -i input/bitwarden.csv -o output/1password.csv
+```
+
+Converting a JSON file
+
+```bash
+node build/bw-to-1p.js -i input/bitwarden.json -o output/1password.csv -f json
 ```
