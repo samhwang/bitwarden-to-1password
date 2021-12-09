@@ -1,11 +1,11 @@
-import { parseCSVInput } from './parseCSV';
+import { parseJSONInput } from './parseJSON';
 import { getRelativeFilepath } from './utils';
 
-describe('Parse CSV File', () => {
-    const inputFile = '../input/sample.csv';
+describe('Parse JSON file', () => {
+    const inputFile = '../input/sample.json';
 
     it('Should parse the file correctly', () => {
-        const records = parseCSVInput(getRelativeFilepath(inputFile));
+        const records = parseJSONInput(getRelativeFilepath(inputFile));
         expect(records.length).toEqual(1);
 
         const item = records[0];
