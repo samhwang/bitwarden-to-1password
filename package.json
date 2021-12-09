@@ -17,6 +17,8 @@
         "prepare": "husky install",
         "clean:all": "npm run prebuild && npm run pretest",
         "prebuild": "rimraf build",
+        "build": "tsc",
+        "build:watch": "tsc -w",
         "pretest": "rimraf coverage",
         "test": "jest",
         "lint": "eslint src --ext .ts",
