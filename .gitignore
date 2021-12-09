@@ -6,3 +6,6 @@ output
 node_modules
 coverage
 build
+
+# Eslint
+.eslintcache
