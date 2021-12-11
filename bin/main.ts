@@ -3,7 +3,7 @@ import { convert } from '../lib';
 
 const program = new Command();
 program
-    .version('0.0.1', '-v', 'output current version')
+    .version('0.0.2', '-v', 'output current version')
     .name('bw-to-1p')
     .description('Convert BitWarden logins into valid 1Password CSVs')
     .option('-i, --input [input]', 'input file', 'input/sample.csv')

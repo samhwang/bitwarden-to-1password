@@ -1,6 +1,6 @@
 {
     "name": "bitwarden-to-1password",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Converts BitWarden exported logins to 1Password-compatible csv format",
     "main": "build/main.js",
     "author": "Sam Huynh <samhwang2112.dev@gmail.com>",
@@ -39,21 +39,21 @@
         "@typescript-eslint/eslint-plugin": "^5.0.0",
         "@typescript-eslint/parser": "^5.0.0",
         "concurrently": "^6.4.0",
-        "esbuild": "^0.13.8",
+        "esbuild": "^0.14.2",
         "esbuild-jest": "^0.5.0",
         "eslint": "^8.0.1",
         "eslint-config-airbnb-base": "^15.0.0",
-        "eslint-config-airbnb-typescript": "^14.0.1",
+        "eslint-config-airbnb-typescript": "^16.1.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-import": "^2.25.3",
         "eslint-plugin-prettier": "^4.0.0",
         "husky": "^7.0.0",
-        "jest": "^27.1.0",
-        "lint-staged": "^11.1.2",
+        "jest": "^27.4.4",
+        "lint-staged": "^12.1.2",
         "prettier": "^2.2.1",
         "rimraf": "^3.0.2",
         "ts-jest": "^27.0.7",
         "ts-node": "^10.2.0",
-        "typescript": "^4.4.4"
+        "typescript": "^4.5.3"
     }
 }
