@@ -6,7 +6,7 @@ const baseConfig: Config.InitialOptions = {
     collectCoverage: true,
     testEnvironment: 'node',
     testPathIgnorePatterns: ['build'],
-    coveragePathIgnorePatterns: ['src/bw-to-1p/convert.ts'],
+    coveragePathIgnorePatterns: ['lib/convert.ts'],
     transform: {
         '^.+\\.tsx?$': [
             'esbuild-jest',

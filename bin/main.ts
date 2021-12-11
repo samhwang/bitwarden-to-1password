@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { convert } from './bw-to-1p';
+import { convert } from '../lib';
 
 const program = new Command();
 program

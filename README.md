@@ -32,14 +32,14 @@ npm run build
 Run one of the following scripts after bundling (it should turn out the same).
 
 ```bash
-node build/bw-to-1p.js
+node build/main.js
 node .
 ```
 
 For debugging purposes, you can also enable source maps with Node.
 
 ```bash
-node --enable-source-maps build/bw-to-1p.js
+node --enable-source-maps build/main.js
 node --enable-source-maps .
 ```
 
@@ -63,11 +63,11 @@ Options:
 Converting a CSV file
 
 ```bash
-node build/bw-to-1p.js -i input/bitwarden.csv -o output/1password.csv
+node build/main.js -i input/bitwarden.csv -o output/1password.csv
 ```
 
 Converting a JSON file
 
 ```bash
-node build/bw-to-1p.js -i input/bitwarden.json -o output/1password.csv -f json
+node build/main.js -i input/bitwarden.json -o output/1password.csv -f json
 ```

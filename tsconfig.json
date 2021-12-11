@@ -16,6 +16,6 @@
     "declaration": true,
     "noEmit": true
   },
-  "include": ["src/**/*", "scripts/*"],
+  "include": ["lib/*", "scripts/*", "bin/*"],
   "exclude": ["node_modules", "build"]
 }

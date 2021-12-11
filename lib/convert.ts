@@ -42,19 +42,22 @@ export interface I1PasswordLogin {
 
 /**
  * Converts BitWarden Login to 1Password Login
- * @param inputs BitWarden Logins
+ * @param input BitWarden Login
  * @returns 1Password Login Objects
  */
-export const convertBWTo1P = (inputs: IBitWardenLogin[]): I1PasswordLogin[] =>
-    inputs.map(
-        ({ name, login_uri, login_username, login_password, notes }) => ({
-            title: name,
-            website: login_uri,
-            username: login_username,
-            password: login_password,
-            notes,
-        })
-    );
+export const convertBWTo1P = ({
+    name,
+    login_uri,
+    login_username,
+    login_password,
+    notes,
+}: IBitWardenLogin): I1PasswordLogin => ({
+    title: name,
+    website: login_uri,
+    username: login_username,
+    password: login_password,
+    notes,
+});
 
 /**
  * Export 1password logins into csv file
@@ -99,7 +102,7 @@ export const convert = (
     const BWLogins = parseInput(inputPath, fileFormat as ISupportedFileFormat);
 
     console.log(`CONVERTING TO 1PASSWORD LOGINS`);
-    const onePassLogins = convertBWTo1P(BWLogins);
+    const onePassLogins = BWLogins.map(convertBWTo1P);
 
     console.log(`WRITING TO OUTPUT FILE: ${outputFile}`);
     write1PasswordCSV(onePassLogins, getRelativeFilepath(outputFile));

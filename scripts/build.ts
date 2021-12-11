@@ -2,10 +2,10 @@ import * as esbuild from 'esbuild';
 
 esbuild
     .build({
-        entryPoints: ['src/main.ts'],
+        entryPoints: ['bin/main.ts'],
         bundle: true,
         minify: true,
-        outfile: 'build/bw-to-1p.js',
+        outfile: 'build/main.js',
         platform: 'node',
         target: 'node14',
         sourcemap: true,
