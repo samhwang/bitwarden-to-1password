@@ -13,8 +13,8 @@ compatible csv format.
 ## Usage Notes
 
 - Login into BitWarden, and [export your vault into CSV format](https://bitwarden.com/help/article/export-your-data/#export-a-personal-vault)
-  - Generally, you should be fine with CSVs
-  - But if you're having troubles with multiple URLs, use JSON.
+  - For most use cases, you should be fine with CSVs
+  - But if you're having troubles with multiple URLs per login, use JSON.
   - Encrypted JSON files are **NOT** supported.
 - Build the nodejs bundle, and use the exported file as the input
 - [Import the converted CSV output into 1Password](https://support.1password.com/import-1password-com/).
