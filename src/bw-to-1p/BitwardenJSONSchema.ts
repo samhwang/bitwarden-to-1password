@@ -1,5 +1,4 @@
-import * as yup from 'yup';
-import { Asserts } from 'yup';
+import yup, { Asserts } from 'yup';
 
 const URISchema = yup
     .object()
