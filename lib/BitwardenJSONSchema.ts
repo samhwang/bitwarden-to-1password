@@ -1,36 +1,26 @@
-import yup, { Asserts } from 'yup';
+import { z } from 'zod';
 
-const URISchema = yup
-    .object()
-    .shape({
-        match: yup.string().nullable(),
-        uri: yup.string().nullable(),
+const URISchema = z.object({
+    match: z.string().nullable(),
+    uri: z.string().nullable(),
+});
+
+const BitWardenItem = z.object({
+    name: z.string(),
+    notes: z.string().optional(),
+    login: z.object({
+        username: z.string().nullish(),
+        password: z.string().nullish(),
+        uris: z.array(URISchema),
+    }),
+});
+
+export const BitWardenJSONExport = z
+    .object({
+        encrypted: z.boolean(),
+        folders: z.array(z.string()),
+        items: z.array(BitWardenItem),
     })
-    .required();
+    .strip();
 
-const BitWardenItem = yup
-    .object()
-    .required()
-    .shape({
-        name: yup.string().required(),
-        notes: yup.string().nullable(),
-        login: yup
-            .object()
-            .shape({
-                username: yup.string().nullable(),
-                password: yup.string().nullable(),
-                uris: yup.array().of(URISchema).optional(),
-            })
-            .required(),
-    });
-
-export const BitWardenJSONExport = yup
-    .object()
-    .required()
-    .shape({
-        encrypted: yup.boolean().required(),
-        folders: yup.array().of(yup.string()),
-        items: yup.array().of(BitWardenItem).required(),
-    });
-
-export type IBitWardenJSONExport = Asserts<typeof BitWardenJSONExport>;
+export type IBitWardenJSONExport = z.infer<typeof BitWardenJSONExport>;

@@ -44,10 +44,7 @@ export const parseJSON = (inputFile: string): IBitWardenLogin[] => {
     const content = fs.readFileSync(inputFile, { encoding: 'utf-8' });
     const rawData = JSON.parse(content);
     const validateResult: IBitWardenJSONExport =
-        BitWardenJSONExport.validateSync(rawData, {
-            strict: true,
-            stripUnknown: true,
-        });
+        BitWardenJSONExport.parse(rawData);
 
     const { encrypted } = validateResult;
     if (encrypted) {
@@ -77,7 +74,7 @@ export const parseJSON = (inputFile: string): IBitWardenLogin[] => {
         }
 
         return accumulator.concat(
-            uris.map(({ uri }: { uri?: string }) => ({
+            uris.map(({ uri }) => ({
                 ...baseObject,
                 login_uri: uri ?? '',
             }))
