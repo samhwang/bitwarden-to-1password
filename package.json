@@ -29,7 +29,8 @@
     },
     "dependencies": {
         "commander": "^8.3.0",
-        "yup": "^0.32.11"
+        "yup": "^0.32.11",
+        "zod": "^3.11.6"
     },
     "devDependencies": {
         "@jest/types": "^27.1.0",
