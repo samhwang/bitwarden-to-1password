@@ -1,6 +1,6 @@
 {
     "name": "bitwarden-to-1password",
-    "version": "0.0.2",
+    "version": "1.0.0",
     "description": "Converts BitWarden exported logins to 1Password-compatible csv format",
     "main": "build/main.js",
     "author": "Sam Huynh <samhwang2112.dev@gmail.com>",
