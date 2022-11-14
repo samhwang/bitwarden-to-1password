@@ -13,9 +13,9 @@ program
 
 const { input, output, format } = program.opts();
 
-const main = () => {
+function main() {
     convert(input, output, format);
     process.exit();
-};
+}
 
 main();

@@ -1,17 +1,15 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import type { IBitWardenLogin } from './convert';
 import {
     BitWardenJSONExport,
     IBitWardenJSONExport,
 } from './BitwardenJSONSchema';
+import { isEmptyLine } from './utils';
 
 /**
  * Parse CSV input file into an array of TS Records
- * @param inputFile Input file name
- * @returns The parsed array of records
  */
-export const parseCSV = (inputFile: string): IBitWardenLogin[] => {
-    const isEmptyLine = (line: string) => line.trim() === '';
+export function parseCSV(inputFile: string): IBitWardenLogin[] {
     return fs
         .readFileSync(inputFile, { encoding: 'utf-8' })
         .split('\n')
@@ -33,14 +31,12 @@ export const parseCSV = (inputFile: string): IBitWardenLogin[] => {
                 },
             ];
         }, []);
-};
+}
 
 /**
  * Parse JSON input file into an array of TS Records
- * @param inputFile Input file name
- * @returns The parsed array of records
  */
-export const parseJSON = (inputFile: string): IBitWardenLogin[] => {
+export function parseJSON(inputFile: string): IBitWardenLogin[] {
     const content = fs.readFileSync(inputFile, { encoding: 'utf-8' });
     const rawData = JSON.parse(content);
     const validateResult: IBitWardenJSONExport =
@@ -80,4 +76,4 @@ export const parseJSON = (inputFile: string): IBitWardenLogin[] => {
             }))
         );
     }, [] as IBitWardenLogin[]);
-};
+}

@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { convertBWTo1P, IBitWardenLogin, I1PasswordLogin } from './convert';
 import {
@@ -10,10 +10,10 @@ import { parseCSV, parseJSON } from './parseInput';
 
 /**
  * Get Path to test file
- * @param fileName
  */
-const getTestFilePath = (fileName: string) =>
-    getRelativeFilepath(path.join('testFiles', 'input', fileName));
+function getTestFilePath(fileName: string) {
+    return getRelativeFilepath(path.join('testFiles', 'input', fileName));
+}
 
 describe('BitWarden to 1Password', () => {
     describe('Utility functions', () => {

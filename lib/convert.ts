@@ -1,73 +1,69 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import { parseCSV, parseJSON } from './parseInput';
 import {
-    arrayToLine,
     getRelativeFilepath,
     isIncorrectFiletype,
     isUnsupportedFiletype,
+    arrayToLine,
     ISupportedFileFormat,
 } from './utils';
 
 export interface IBitWardenLogin {
-    name: string;
-    notes: string;
-    login_uri: string;
-    login_username: string;
-    login_password: string;
+    readonly name: string;
+    readonly notes: string;
+    readonly login_uri: string;
+    readonly login_username: string;
+    readonly login_password: string;
 }
 
 /**
  * Parse input base on file type
- * @param inputFile
- * @param fileFormat
  */
-export const parseInput = <Format extends ISupportedFileFormat>(
+export function parseInput<Format extends ISupportedFileFormat>(
     inputFile: string,
     fileFormat: Format
-): IBitWardenLogin[] => {
+): IBitWardenLogin[] {
     if (fileFormat === 'csv') {
         return parseCSV(inputFile);
     }
 
     return parseJSON(inputFile);
-};
+}
 
 export interface I1PasswordLogin {
-    title: string;
-    website: string;
-    username: string;
-    password: string;
-    notes?: string;
+    readonly title: string;
+    readonly website: string;
+    readonly username: string;
+    readonly password: string;
+    readonly notes?: string;
 }
 
 /**
  * Converts BitWarden Login to 1Password Login
- * @param input BitWarden Login
- * @returns 1Password Login Objects
  */
-export const convertBWTo1P = ({
+export function convertBWTo1P({
     name,
     login_uri,
     login_username,
     login_password,
     notes,
-}: IBitWardenLogin): I1PasswordLogin => ({
-    title: name,
-    website: login_uri,
-    username: login_username,
-    password: login_password,
-    notes,
-});
+}: IBitWardenLogin): I1PasswordLogin {
+    return {
+        title: name,
+        website: login_uri,
+        username: login_username,
+        password: login_password,
+        notes,
+    };
+}
 
 /**
  * Export 1password logins into csv file
- * @param logins 1Password login objects
- * @param outputFile Output file name
  */
-export const write1PasswordCSV = (
+export function write1PasswordCSV(
     logins: I1PasswordLogin[],
     outputFile: string
-) => {
+) {
     const titles = ['title', 'website', 'username', 'password', 'notes'];
     const titleLine = arrayToLine(titles);
     const toWrite = logins.reduce(
@@ -76,19 +72,16 @@ export const write1PasswordCSV = (
         titleLine
     );
     fs.writeFileSync(outputFile, toWrite, { encoding: 'utf-8' });
-};
+}
 
 /**
  * End-to-end conversion process
- * @param inputFile The BitWarden export file
- * @param outputFile The 1Password compatible CSV
- * @param fileFormat File format: csv/json
  */
-export const convert = (
+export function convert(
     inputFile: string,
     outputFile: string,
     fileFormat: string
-) => {
+) {
     if (isUnsupportedFiletype(fileFormat)) {
         throw new Error(`Unsupported file type: ${fileFormat}`);
     }
@@ -105,7 +98,8 @@ export const convert = (
     const onePassLogins = BWLogins.map(convertBWTo1P);
 
     console.log(`WRITING TO OUTPUT FILE: ${outputFile}`);
-    write1PasswordCSV(onePassLogins, getRelativeFilepath(outputFile));
+    const outputPath = getRelativeFilepath(outputFile);
+    write1PasswordCSV(onePassLogins, outputPath);
 
     console.log(`WRITE DONE!`);
-};
+}
