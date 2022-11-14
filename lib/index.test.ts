@@ -1,4 +1,5 @@
 import path from 'path';
+import { describe, it, expect } from 'vitest';
 import { convertBWTo1P, IBitWardenLogin, I1PasswordLogin } from './convert';
 import {
     isIncorrectFiletype,

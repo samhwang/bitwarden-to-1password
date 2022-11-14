@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ES5",
     "lib": ["esnext"],
+    "types": ["vitest"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
