@@ -7,8 +7,8 @@ compatible csv format.
 
 ## Prerequisites
 
-- Node 14+
-- NPM 7+
+- Node 16+
+- PNPM 7+
 
 ## Usage Notes
 
@@ -24,7 +24,7 @@ compatible csv format.
 ```bash
 git clone https://github.com/samhwang/bitwarden-to-1password.git
 cd bitwarden-to-1password
-npm run build
+pnpm run build
 ```
 
 ## Run the script
