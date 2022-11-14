@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "allowJs": false,
+        "strict": true
+    },
+    "lint": {
+        "files": {
+            "include": ["lib", "bin"],
+            "exclude": ["build", "input", "output"]
+        },
+        "rules": {
+            "tags": ["recommended"]
+        }
+    },
+    "fmt": {
+        "files": {
+            "include": ["lib", "bin"],
+            "exclude": ["build", "input", "output"]
+        },
+        "options": {
+            "useTabs": false,
+            "lineWidth": 120,
+            "indentWidth": 4,
+            "singleQuote": true
+        }
+    },
+    "test": {
+        "files": {
+            "include": ["lib", "bin"],
+            "exclude": ["build", "input", "output"]
+        }
+    },
+    "tasks": {}
+}
