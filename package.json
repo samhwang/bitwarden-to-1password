@@ -43,7 +43,6 @@
         "eslint-config-airbnb-typescript": "^17.0.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-prettier": "^4.2.1",
         "prettier": "^2.7.1",
         "rimraf": "^3.0.2",
         "tsx": "^3.12.1",
