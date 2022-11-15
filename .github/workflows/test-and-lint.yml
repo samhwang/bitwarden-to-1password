@@ -1,0 +1,30 @@
+name: Tests and Lints packages
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  test-and-lint:
+    name: Test and Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Run linting
+        run: |
+          deno fmt --check
+          deno lint
+
+      - name: Run tests
+        run: deno task test
