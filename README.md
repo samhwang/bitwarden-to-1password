@@ -5,11 +5,6 @@ Inspired from [torshinalexey/bitwarden-to-1password-csv](https://github.com/tors
 This cli tool converts exported logins from [BitWarden](https://bitwarden.com) to [1Password](https://1password.com)
 compatible csv format.
 
-## Prerequisites
-
-- Node 16+
-- PNPM 7+
-
 ## Usage Notes
 
 - Login into BitWarden, and [export your vault into CSV format](https://bitwarden.com/help/article/export-your-data/#export-a-personal-vault)
@@ -19,43 +14,40 @@ compatible csv format.
 - Build the nodejs bundle, and use the exported file as the input
 - [Import the converted CSV output into 1Password](https://support.1password.com/import-1password-com/).
 
-## Build the NodeJS bundle
+## Prerequisites (for development)
+
+- Deno 1.27+
+
+## Build the executable
 
 ```bash
 git clone https://github.com/samhwang/bitwarden-to-1password.git
 cd bitwarden-to-1password
-pnpm run build
+deno task compile
 ```
 
 ## Run the script
 
-Run one of the following scripts after bundling (it should turn out the same).
+Run the script after compiling.
 
 ```bash
-node build/main.js
-node .
-```
-
-For debugging purposes, you can also enable source maps with Node.
-
-```bash
-node --enable-source-maps build/main.js
-node --enable-source-maps .
+./build/bw-to-1p convert -i path/to/input -f format -o path/to/output
 ```
 
 ## Options
 
 ```text
-Usage: bw-to-1p [options]
+Command Usage:
+convert {options}
 
-Convert BitWarden logins into valid 1Password CSVs
+Description:
+Convert BitWarden Logins into 1Password
 
 Options:
-  -v                     output current version
-  -i, --input [input]    input file (default: "input/sample.csv")
-  -o, --output [output]  output file (default: "output/out.csv")
-  -f, --format [format]  file format: csv or json. (default: "csv")
-  -h, --help             display help for command
+-f, --format file format: csv or json.	(default: csv)
+-h --help    Help Screen
+-i, --input  input file	(default: input/sample.csv)
+-o, --output output file	(default: output/out.csv)
 ```
 
 ## Example
@@ -63,11 +55,11 @@ Options:
 Converting a CSV file
 
 ```bash
-node build/main.js -i input/bitwarden.csv -o output/1password.csv
+./build/bw-to-1p convert -i input/bitwarden.csv -o output/1password.csv
 ```
 
 Converting a JSON file
 
 ```bash
-node build/main.js -i input/bitwarden.json -o output/1password.csv -f json
+./build/bw-to-1p convert -i input/bitwarden.json -o output/1password.csv -f json
 ```
