@@ -21,6 +21,17 @@ jobs:
         with:
           deno-version: v1.x
 
+      - name: Cache deno dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.deno
+            ~/.cache/deno
+          key: ${{ runner.os }}-deno-${{ hashFiles('**/lock.json') }}
+
+      - name: Fetch deno dependencies
+        run: deno cache lib/deps.ts lib/dev_deps.ts
+
       - name: Run linting
         run: |
           deno fmt --check
