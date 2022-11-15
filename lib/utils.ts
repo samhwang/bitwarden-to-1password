@@ -1,9 +1,10 @@
-import path from 'node:path';
+import { path } from './dependencies.ts';
 
 /**
  * Get relative file path from the script calling this
  */
 export function getRelativeFilepath(filename: string) {
+    const __dirname = path.dirname(path.fromFileUrl(import.meta.url));
     return path.join(__dirname, '..', filename);
 }
 
@@ -24,7 +25,7 @@ export type ISupportedFileFormat = keyof typeof SupportedFileFormat;
  * Detect if a file type is supported
  */
 export function isUnsupportedFiletype(
-    format: string
+    format: string,
 ): format is SupportedFileFormat {
     return !(format in SupportedFileFormat);
 }

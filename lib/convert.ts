@@ -1,12 +1,11 @@
-import fs from 'node:fs';
-import { parseCSV, parseJSON } from './parseInput';
+import { parseCSV, parseJSON } from './parseInput.ts';
 import {
+    arrayToLine,
     getRelativeFilepath,
     isIncorrectFiletype,
     isUnsupportedFiletype,
-    arrayToLine,
     ISupportedFileFormat,
-} from './utils';
+} from './utils.ts';
 
 export interface IBitWardenLogin {
     readonly name: string;
@@ -21,7 +20,7 @@ export interface IBitWardenLogin {
  */
 export function parseInput<Format extends ISupportedFileFormat>(
     inputFile: string,
-    fileFormat: Format
+    fileFormat: Format,
 ): IBitWardenLogin[] {
     if (fileFormat === 'csv') {
         return parseCSV(inputFile);
@@ -62,16 +61,15 @@ export function convertBWTo1P({
  */
 export function write1PasswordCSV(
     logins: I1PasswordLogin[],
-    outputFile: string
+    outputFile: string,
 ) {
     const titles = ['title', 'website', 'username', 'password', 'notes'];
     const titleLine = arrayToLine(titles);
     const toWrite = logins.reduce(
-        (fileContent, login) =>
-            `${fileContent}${arrayToLine(Object.values(login))}`,
-        titleLine
+        (fileContent, login) => `${fileContent}${arrayToLine(Object.values(login))}`,
+        titleLine,
     );
-    fs.writeFileSync(outputFile, toWrite, { encoding: 'utf-8' });
+    Deno.writeTextFileSync(outputFile, toWrite);
 }
 
 /**
@@ -80,7 +78,7 @@ export function write1PasswordCSV(
 export function convert(
     inputFile: string,
     outputFile: string,
-    fileFormat: string
+    fileFormat: string,
 ) {
     if (isUnsupportedFiletype(fileFormat)) {
         throw new Error(`Unsupported file type: ${fileFormat}`);

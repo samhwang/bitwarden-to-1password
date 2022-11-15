@@ -1,12 +1,8 @@
-import path from 'node:path';
-import { describe, it, expect } from 'vitest';
-import { convertBWTo1P, IBitWardenLogin, I1PasswordLogin } from './convert';
-import {
-    isIncorrectFiletype,
-    isUnsupportedFiletype,
-    getRelativeFilepath,
-} from './utils';
-import { parseCSV, parseJSON } from './parseInput';
+import { path } from './dependencies.ts';
+import { assertEquals, assertObjectMatch, assertThrows, describe, it } from './devDependencies.ts';
+import { convertBWTo1P, IBitWardenLogin } from './convert.ts';
+import { getRelativeFilepath, isIncorrectFiletype, isUnsupportedFiletype } from './utils.ts';
+import { parseCSV, parseJSON } from './parseInput.ts';
 
 /**
  * Get Path to test file
@@ -19,22 +15,22 @@ describe('BitWarden to 1Password', () => {
     describe('Utility functions', () => {
         describe('Flagging incorrect file type', () => {
             it('Should flag .csv file and csv format is correct', () => {
-                expect(isIncorrectFiletype('test.csv', 'csv')).toBeFalsy();
+                assertEquals(isIncorrectFiletype('test.csv', 'csv'), false);
             });
 
             it('Should flag .csv file and json format as incorrect', () => {
-                expect(isIncorrectFiletype('test.csv', 'json')).toBeTruthy();
+                assertEquals(isIncorrectFiletype('test.csv', 'json'), true);
             });
         });
 
         describe('Flagging unsupported file type', () => {
             it('Should not flag csv or json as unsupported file type', () => {
-                expect(isUnsupportedFiletype('json')).toBeFalsy();
-                expect(isUnsupportedFiletype('csv')).toBeFalsy();
+                assertEquals(isUnsupportedFiletype('json'), false);
+                assertEquals(isUnsupportedFiletype('csv'), false);
             });
 
             it('Should flag unsupported file type correctly', () => {
-                expect(isUnsupportedFiletype('txt')).toBeTruthy();
+                assertEquals(isUnsupportedFiletype('txt'), true);
             });
         });
     });
@@ -43,10 +39,10 @@ describe('BitWarden to 1Password', () => {
         it('Should parse the file correctly', () => {
             const inputFile = 'sample.csv';
             const records = parseCSV(getTestFilePath(inputFile));
-            expect(records.length).toEqual(1);
+            assertEquals(records.length, 1);
 
             const item = records[0];
-            expect(item).toEqual({
+            assertObjectMatch(item, {
                 name: 'Example name',
                 notes: 'example note',
                 login_uri: 'https://example.com',
@@ -59,23 +55,25 @@ describe('BitWarden to 1Password', () => {
     describe('Parse JSON file', () => {
         it('Should throw error when reading invalid json files', () => {
             const inputFile = 'sample_invalid.json';
-            expect(() => parseJSON(getTestFilePath(inputFile))).toThrow();
+            assertThrows(() => parseJSON(getTestFilePath(inputFile)));
         });
 
         it('Should throw error when reading encrypted json files', () => {
             const inputFile = 'sample_encrypted.json';
-            expect(() => parseJSON(getTestFilePath(inputFile))).toThrow(
-                'Cannot work with encrypted JSON file. Please use an unencrypted export.'
+            assertThrows(
+                () => parseJSON(getTestFilePath(inputFile)),
+                Error,
+                'Cannot work with encrypted JSON file. Please use an unencrypted export.',
             );
         });
 
         it('Should parse the file correctly with empty credentials', () => {
             const inputFile = 'sample_empty_credentials.json';
             const records = parseJSON(getTestFilePath(inputFile));
-            expect(records.length).toEqual(1);
+            assertEquals(records.length, 1);
 
             const item = records[0];
-            expect(item).toEqual({
+            assertObjectMatch(item, {
                 name: 'Example name',
                 notes: '',
                 login_uri: '',
@@ -87,10 +85,10 @@ describe('BitWarden to 1Password', () => {
         it('Should parse the file correctly with empty uri array', () => {
             const inputFile = 'sample_no_uris.json';
             const records = parseJSON(getTestFilePath(inputFile));
-            expect(records.length).toEqual(1);
+            assertEquals(records.length, 1);
 
             const item = records[0];
-            expect(item).toEqual({
+            assertObjectMatch(item, {
                 name: 'Example name',
                 notes: 'example note',
                 login_uri: '',
@@ -102,10 +100,10 @@ describe('BitWarden to 1Password', () => {
         it('Should parse the file correctly with at least 1 uri', () => {
             const inputFile = 'sample_valid.json';
             const records = parseJSON(getTestFilePath(inputFile));
-            expect(records.length).toEqual(1);
+            assertEquals(records.length, 1);
 
             const item = records[0];
-            expect(item).toEqual({
+            assertObjectMatch(item, {
                 name: 'Example name',
                 notes: 'example note',
                 login_uri: 'https://example.com',
@@ -117,10 +115,10 @@ describe('BitWarden to 1Password', () => {
         it('Should parse the file correctly with null uri', () => {
             const inputFile = 'sample_null_uri.json';
             const records = parseJSON(getTestFilePath(inputFile));
-            expect(records.length).toEqual(1);
+            assertEquals(records.length, 1);
 
             const item = records[0];
-            expect(item).toEqual({
+            assertObjectMatch(item, {
                 name: 'Example name',
                 notes: 'example note',
                 login_uri: '',
@@ -140,14 +138,13 @@ describe('BitWarden to 1Password', () => {
                 login_password: 'example_password',
             };
             const output = convertBWTo1P(input);
-            const expectedOutput: I1PasswordLogin = {
+            assertObjectMatch(output, {
                 title: 'Example name',
                 notes: 'example note',
                 website: 'https://example.com',
                 username: 'example_login',
                 password: 'example_password',
-            };
-            expect(output).toEqual(expectedOutput);
+            });
         });
     });
 });

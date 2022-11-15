@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from './dependencies.ts';
 
 const URISchema = z.object({
     match: z.string().nullable(),

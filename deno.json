@@ -26,9 +26,12 @@
     },
     "test": {
         "files": {
-            "include": ["lib", "bin"],
+            "include": ["lib"],
             "exclude": ["build", "input", "output"]
         }
     },
-    "tasks": {}
+    "tasks": {
+        "test": "deno test --allow-read --allow-write --coverage=coverage",
+        "compile": "deno compile --allow-read --allow-write --output build/bw-to-1p bin/main.ts"
+    }
 }

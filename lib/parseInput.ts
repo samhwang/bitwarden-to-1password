@@ -1,17 +1,13 @@
-import fs from 'node:fs';
-import type { IBitWardenLogin } from './convert';
-import {
-    BitWardenJSONExport,
-    IBitWardenJSONExport,
-} from './BitwardenJSONSchema';
-import { isEmptyLine } from './utils';
+import type { IBitWardenLogin } from './convert.ts';
+import { BitWardenJSONExport, IBitWardenJSONExport } from './BitwardenJSONSchema.ts';
+import { isEmptyLine } from './utils.ts';
 
 /**
  * Parse CSV input file into an array of TS Records
  */
 export function parseCSV(inputFile: string): IBitWardenLogin[] {
-    return fs
-        .readFileSync(inputFile, { encoding: 'utf-8' })
+    return Deno
+        .readTextFileSync(inputFile)
         .split('\n')
         .slice(1)
         .reduce((accumulator: IBitWardenLogin[], currentLine) => {
@@ -37,15 +33,14 @@ export function parseCSV(inputFile: string): IBitWardenLogin[] {
  * Parse JSON input file into an array of TS Records
  */
 export function parseJSON(inputFile: string): IBitWardenLogin[] {
-    const content = fs.readFileSync(inputFile, { encoding: 'utf-8' });
+    const content = Deno.readTextFileSync(inputFile);
     const rawData = JSON.parse(content);
-    const validateResult: IBitWardenJSONExport =
-        BitWardenJSONExport.parse(rawData);
+    const validateResult: IBitWardenJSONExport = BitWardenJSONExport.parse(rawData);
 
     const { encrypted } = validateResult;
     if (encrypted) {
         throw new Error(
-            'Cannot work with encrypted JSON file. Please use an unencrypted export.'
+            'Cannot work with encrypted JSON file. Please use an unencrypted export.',
         );
     }
 
@@ -73,7 +68,7 @@ export function parseJSON(inputFile: string): IBitWardenLogin[] {
             uris.map(({ uri }) => ({
                 ...baseObject,
                 login_uri: uri ?? '',
-            }))
+            })),
         );
     }, [] as IBitWardenLogin[]);
 }
