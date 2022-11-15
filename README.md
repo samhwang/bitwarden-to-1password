@@ -11,10 +11,10 @@ compatible csv format.
   - For most use cases, you should be fine with CSVs
   - But if you're having troubles with multiple URLs per login, use JSON.
   - Encrypted JSON files are **NOT** supported.
-- Build the nodejs bundle, and use the exported file as the input
+- Build the executable, and use the exported file as the input
 - [Import the converted CSV output into 1Password](https://support.1password.com/import-1password-com/).
 
-## Prerequisites (for development)
+## Prerequisites
 
 - Deno 1.27+
 
