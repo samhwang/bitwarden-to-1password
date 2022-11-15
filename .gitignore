@@ -2,10 +2,8 @@
 input
 output
 
-# Node Modules
-node_modules
+# Test Coverage
 coverage
-build
 
-# Eslint
-.eslintcache
+# Build output
+build

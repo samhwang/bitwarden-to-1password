@@ -1,21 +1,31 @@
-import { Command } from 'commander';
-import { convert } from '../lib';
+import { Denomander, Option } from '../lib/deps.ts';
+import { convert } from '../lib/index.ts';
 
-const program = new Command();
+const program = new Denomander({
+    app_name: 'bw-to-1p',
+    app_description: 'Convert BitWarden logins into valid 1Password CSVs',
+    app_version: '1.0.0',
+});
 program
-    .version('1.0.0', '-v', 'output current version')
-    .name('bw-to-1p')
-    .description('Convert BitWarden logins into valid 1Password CSVs')
-    .option('-i, --input [input]', 'input file', 'input/sample.csv')
-    .option('-o, --output [output]', 'output file', 'output/out.csv')
-    .option('-f, --format [format]', 'file format: csv or json.', 'csv')
-    .parse();
-
-const { input, output, format } = program.opts();
-
-function main() {
-    convert(input, output, format);
-    process.exit();
-}
-
-main();
+    .command('convert', 'Convert BitWarden Logins into 1Password')
+    .addOption(
+        new Option({
+            flags: '-i --input',
+            description: 'input file',
+            defaultValue: 'input/sample.csv',
+        }),
+        new Option({
+            flags: '-o --output',
+            description: 'output file',
+            defaultValue: 'output/out.csv',
+        }),
+        new Option({
+            flags: '-f --format',
+            description: 'file format: csv or json',
+            defaultValue: 'csv',
+        }),
+    )
+    .action(({ input, output, format }: typeof program) => {
+        convert(input, output, format);
+    })
+    .parse(Deno.args);
