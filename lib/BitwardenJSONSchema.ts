@@ -18,7 +18,10 @@ const BitWardenItem = z.object({
 export const BitWardenJSONExport = z
     .object({
         encrypted: z.boolean(),
-        folders: z.array(z.string()),
+        folders: z.array(z.object({
+            id: z.string(),
+            name: z.string(),
+        })),
         items: z.array(BitWardenItem),
     })
     .strip();

@@ -1,6 +1,11 @@
 {
     "encrypted": false,
-    "folders": [],
+    "folders": [
+        {
+            "id": "a7f60b70-38d8-4885-9bca-df347be63c71",
+            "name": "example"
+        }
+    ],
     "items": [
         {
             "id": "123456789123456789",
