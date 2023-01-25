@@ -1,18 +1,18 @@
 import { z } from './deps.ts';
 
 const URISchema = z.object({
-    match: z.string().nullable(),
+    match: z.union([z.string(), z.number()]).nullable(),
     uri: z.string().nullable(),
 });
 
 const BitWardenItem = z.object({
     name: z.string(),
-    notes: z.string().optional(),
+    notes: z.string().nullable().optional(),
     login: z.object({
         username: z.string().nullish(),
         password: z.string().nullish(),
-        uris: z.array(URISchema),
-    }),
+        uris: z.array(URISchema).optional(),
+    }).optional(),
 });
 
 export const BitWardenJSONExport = z

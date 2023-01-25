@@ -49,25 +49,27 @@ export function parseJSON(inputFile: string): IBitWardenLogin[] {
         const baseObject: Omit<IBitWardenLogin, 'login_uri'> = {
             name,
             notes: notes ?? '',
-            login_username: login.username ?? '',
-            login_password: login.password ?? '',
+            login_username: login?.username ?? '',
+            login_password: login?.password ?? '',
         };
 
-        const { uris } = login;
+        let uris: string[] = [];
+
+        if (login && login.uris) {
+            login.uris.forEach((u) => {
+                if (u.uri) {
+                    uris.push(u.uri);
+                }
+            });
+        }
         if (uris.length === 0) {
-            return [
-                ...accumulator,
-                {
-                    ...baseObject,
-                    login_uri: '',
-                },
-            ];
+            uris = [''];
         }
 
         return accumulator.concat(
-            uris.map(({ uri }) => ({
+            uris.map((uri) => ({
                 ...baseObject,
-                login_uri: uri ?? '',
+                login_uri: uri,
             })),
         );
     }, [] as IBitWardenLogin[]);
