@@ -1,9 +1,9 @@
 # Input and Output files
-input
-output
+/input
+/output
 
 # Test Coverage
-coverage
+/coverage
 
 # Build output
-build
+/build
