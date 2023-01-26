@@ -126,6 +126,34 @@ describe('BitWarden to 1Password', () => {
                 login_password: 'example_password',
             });
         });
+
+        it('Should parse the file correctly with null or missing properties', () => {
+            const inputFile = 'sample_null_or_missing_properties.json';
+            const records = parseJSON(getTestFilePath(inputFile));
+            assertEquals(records.length, 3);
+
+            assertObjectMatch(records[0], {
+                name: 'Example name',
+                notes: 'example note',
+                login_uri: '',
+                login_username: 'example_login',
+                login_password: 'example_password',
+            });
+            assertObjectMatch(records[1], {
+                name: 'Example with null note and no login',
+                notes: '',
+                login_uri: '',
+                login_username: '',
+                login_password: '',
+            });
+            assertObjectMatch(records[2], {
+                name: 'Example with no uris',
+                notes: 'example note',
+                login_uri: '',
+                login_username: 'example_login',
+                login_password: 'example_password',
+            });
+        });
     });
 
     describe('Conversion', () => {

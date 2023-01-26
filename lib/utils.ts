@@ -34,6 +34,13 @@ export function isUnsupportedFiletype(
  * Output array to line
  */
 export function arrayToLine(words: string[]) {
+    words = words.map((w) => {
+        // basic CSV escaping
+        if (w.search(/["\n]/) !== -1) {
+            return `"${w.replaceAll('"', '""')}"`;
+        }
+        return w;
+    });
     return `${words.join(',')}\n`;
 }
 
