@@ -1,5 +1,14 @@
 # Convert BitWarden vault export to 1Password accepted CSV
 
+## DEPRECATION NOTICE
+
+This utility is no longer maintained because:
+
+- I don't use Bitwarden anymore, so I can't possibly test with new BitWarden changes.
+- 1Password can import Bitwarden's export directly. See reference here: https://support.1password.com/import-1password-com/
+
+---
+
 Inspired from [torshinalexey/bitwarden-to-1password-csv](https://github.com/torshinalexey/bitwarden-to-1password-csv).
 
 This cli tool converts exported logins from [BitWarden](https://bitwarden.com) to [1Password](https://1password.com)
